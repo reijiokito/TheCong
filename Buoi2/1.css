@@ -1,0 +1,51 @@
+p{
+    color: #ff0707;
+
+}
+.blue-text, #back {
+    color: blue;
+}
+/*ID */
+#top{
+    color: purple;
+}
+/*attribute */
+[href] {
+    text-decoration: underline;
+}
+
+[href="#top"] {
+    text-decoration: overline;
+}
+ol li {
+    text-decoration: underline  ;
+}
+
+/* child select*/
+/* direct child select*/
+
+/*pseudo */
+p:hover {
+    background-color: pink;
+}
+ 
+p {
+    background-image: url('./1.jpg');
+    background-size: cover;
+    border: 5px solid red;
+    /*dat with va height bag nhau thi se bo tron` */
+    border-radius: 150px;
+}
+
+/* 
+border
+margin
+text
+image
+display(none, inline,block,inline-block)
+    +inline : span, p,.. => khong the dat weight, height cho inline.
+    +block : thong thuong se chiem nguyen 1 dong.
+    +inline-block : khi con du cho trong thi se dien` tiep.
+    +none: khong hien thi
+padding
+*/
