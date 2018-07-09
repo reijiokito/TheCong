@@ -1,0 +1,48 @@
+
+/* Tag Name */
+
+span {
+    color: #00ffff;
+}
+
+/* Class name */
+
+.red-text{
+    color:  #ff0000;
+}
+
+/* Id */
+
+#top{
+    color: #7fffd4;
+}
+
+/* Attribute */
+
+[href]{
+    text-decoration: none;
+}
+
+
+/* And Selector */
+p, .red-text,#top {
+    color: red;
+}
+
+
+/* Child Selector */
+ol a {
+    color: brown;
+}
+
+
+/* Direct Child Selector */
+ol li > a{
+    color: yellowgreen;
+}
+
+
+/* Pseudo-class */
+p:hover{
+    background-color: bisque;
+}

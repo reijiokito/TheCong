@@ -1,0 +1,40 @@
+.menu1 {
+    background: #343a3a;
+    color: white;
+    display: flex;
+    font-weight: bold;
+    margin: 0;
+}
+
+.menu1 #a1{
+    width: 100px;
+    height: 50px;
+    padding-top: 15px;
+    padding-bottom:15px;
+    text-align: center;
+    position: relative;
+    margin : 1px solid white;
+    text-decoration: none;
+    color: white;
+}
+
+.menu1 #a1:hover {
+    background:black;
+}
+
+.container{
+    padding-right: 80px;
+    padding-left: 80px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+form {
+    display: block;
+    
+    margin-top: 4em;
+}
+p{
+    margin: 0 0 10px;
+    display: block;
+}
