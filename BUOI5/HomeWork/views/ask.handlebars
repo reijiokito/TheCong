@@ -1,31 +1,22 @@
 
     <div class="container">
-    <form action="/question/add" method="post" , name="form">
+    <form action="/question/add" method="post">
         <h1>Hãy hỏi cộng đồng một câu hỏi đúng/sai hoặc có/không</h1>
-        <textarea class="form-control" maxlength="200px" rows="6" id="question" name="question" onkeyup="return displayWordCounter();"></textarea>        
-        
-        <div class="total_count">Total remaining Charatctor:
-            <input class="show_count" name="totalWordLimit" size="4" readonly="" value="200" type="text">
-        </div>
+        <textarea class="form-control" maxlength="200" rows="6" id="question" name="question" onkeyup="return displayWordCounter();"></textarea>        
+        <p>Con <span id="remain">200 </span> / 200 ky tu</p>
         <button class="btn btn-primary" type="submit" id="btn_ask">Gửi</button>
       </form>
     </div>
 
     <script>
-
-      var setTotalNumberOfWordCounter = "200";
-
+      let char = 200;
       function displayWordCounter(){
-    var getTextValue = document.frm.dd_fc_comment.value; 
-    var getTextLength = getTextValue.length;  
-    if(getTextLength > setTotalNumberOfWordCounter){     
-            getTextValue = getTextValue.substring(0,setTotalNumberOfWordCounter);
-            document.frm.dd_fc_comment.value =getTextValue;
-            return false;
-    }
-    document.form.totalWordLimit.value = (setTotalNumberOfWordCounter-getTextLength);
+      
+      document.getElementById("question").addEventListener("input",function(){
+        document.getElementById("remain").innerText = char - document.getElementById("question").value.length;
+      });
        
-    }
+      }
         
     </script>
      
