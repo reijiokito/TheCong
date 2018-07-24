@@ -1,8 +1,8 @@
-
     <div class="container">
-    <form action="/question/add" method="post">
+      {{!-- action="/question/add" method="post" --}}
+    <form id="questionForm"> 
         <h1>Hãy hỏi cộng đồng một câu hỏi đúng/sai hoặc có/không</h1>
-        <textarea class="form-control" maxlength="200" rows="6" id="question" name="question" onkeyup="return displayWordCounter();"></textarea>        
+        <textarea class="form-control" maxlength="200" rows="6" id="question" name="question" ></textarea>        
         <p>Con <span id="remain">200 </span> / 200 ky tu</p>
         <button class="btn btn-primary" type="submit" id="btn_ask">Gửi</button>
       </form>
@@ -10,13 +10,36 @@
 
     <script>
       let char = 200;
-      function displayWordCounter(){
-      
-      document.getElementById("question").addEventListener("input",function(){
-        document.getElementById("remain").innerText = char - document.getElementById("question").value.length;
+
+     $("#question").on("input",function(){
+        let s = char - $("#question").val().length;
+        $("#remain").text(s);
       });
-       
+
+  $("#questionForm").on("submit",function(event){
+    event.preventDefault();//Ngan viec submit tu dong vua form
+    $.ajax({
+      url : '/api/addQuestion',
+      type : 'POST',
+      data: $("#question").serialize(),
+      success: function(body){
+        if(body.success){
+          window.location.href = "/question/" +body.questionId;
+        }else{
+          alert("Loi roi: 1");
+        }
+      },
+      error : function(body){
+        console.log(body);
+        alert("Loi roi: 2");
       }
+
+    });
+  });
+
+
+
+     
         
     </script>
      

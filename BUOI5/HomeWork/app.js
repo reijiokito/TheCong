@@ -1,4 +1,6 @@
 const express = require("express");
+
+const apiRouter = require("./router/apiRouter");
 const fileModule = require('./fileModule.js');
 const questionList = require('./question.json');
 const fs = require('fs');
@@ -27,6 +29,7 @@ app.set("view engine", "handlebars");
 
 
 app.use("/question",questionRouter);
+app.use("/api",apiRouter);
 
 // app.use(function(req, res, next){
 //     console.log("MiddleWare !!!");
@@ -105,25 +108,25 @@ app.get(["/"],function(req,res){
 // });
 
 
-app.get("/answer/:questionId/:vote", (req, res) =>{
-    QuestionModel.find()
-        .then(function(doc){
-            let voteOp = req.params.vote;
+// app.get("/answer/:questionId/:vote", (req, res) =>{
+//     QuestionModel.find()
+//         .then(function(doc){
+//             let voteOp = req.params.vote;
     
-            if(voteOp=="yes"){
-                QuestionModel.update({_id : req.params.questionId},{$set: {yes: doc[0].yes + 1}},() => {
-                    res.redirect("/question/"+req.params.questionId);            
-                })
-            }else{
-                QuestionModel.update({_id : req.params.questionId},{$set: {no: doc[0].no + 1}},() => {
-                    res.redirect("/question/"+req.params.questionId);            
-                })
-            }
-        });
-    // questionList[req.params.questionId][req.params.vote] += 1;
-    // fs.writeFileSync('./question.json', JSON.stringify(questionList));
-    // res.redirect("/question/"+req.params.questionId);
-});
+//             if(voteOp=="yes"){
+//                 QuestionModel.update({_id : req.params.questionId},{$set: {yes: doc[0].yes + 1}},() => {
+//                     res.redirect("/question/"+req.params.questionId);            
+//                 })
+//             }else{
+//                 QuestionModel.update({_id : req.params.questionId},{$set: {no: doc[0].no + 1}},() => {
+//                     res.redirect("/question/"+req.params.questionId);            
+//                 })
+//             }
+//         });
+//     // questionList[req.params.questionId][req.params.vote] += 1;
+//     // fs.writeFileSync('./question.json', JSON.stringify(questionList));
+//     // res.redirect("/question/"+req.params.questionId);
+// });
 
 
 

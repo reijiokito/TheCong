@@ -6,19 +6,49 @@
       <div class="col-md-6">
         <button  class="btn btn-danger btn-lg">
           <span class="glyphicon glyphicon-thumbs-down"></span>
-           <a href="/answer/{{question.id}}/no">Sai / Không / Trái</a>
+           <a href="/answer/{{question.id}}/no" id="voteLeft">Sai / Không / Trái</a>
          </button>
       </div>
       <div class="col-md-6">
         <button class="btn btn-primary btn-lg" >
           <span class="glyphicon glyphicon-thumbs-up"></span>
-           <a href="/answer/{{question.id}}/yes">Đúng / Có / Phải</a>
+           <a href="/answer/{{question.id}}/yes" id="voteRight">Đúng / Có / Phải</a>
          </button>
       </div>
     </div>
     <div class="row text-center" id="btn_chuyen">
-      <button class="btn btn-default" ><a href="http://localhost:8989/question/{{question.id}}">Kết quả vote</a></button>
-      <button  class="btn btn-default" ><a href="/">Câu hỏi khác</a></button>
+      <button class="btn btn-default" ><a href="http://localhost:8989/question/{{question.id}}" id="votebtn">Kết quả vote</a></button>
+      <button  class="btn btn-default" id="ortherQuestion"><a href="/">Câu hỏi khác</a></button>
     </div>
   </form>
 </div>
+<script>
+  $("#ortherQuestion").on("click",function(event){
+    $.ajax({
+        url: '/',
+        type: 'POST',
+        success:function(body){
+          console.log(body.success);
+          if(body.success){
+             let question;
+                let rand=Math.floor(Math.random()*body.questions.length)
+                console.log(rand);
+                  question =body.questions[rand];                           
+                  $("#text_question").text(body.question.content);
+                  $("#voteLeft").attr("href","/api/answer/"+body.question._id+"/no");
+                  $("#voteRight").attr("href","/api/answer/"+body.question._id+"/yes");
+                  $("#votebtn").attr("href","/question/"+body.question._id);           
+          }
+          else{
+            alert("Loi roi: 1");
+          }          
+        },
+         error : function(body){
+                  console.log(body);
+                  alert("Loi roi: 2");
+                 }
+
+        })     
+    }
+  });
+</script>
