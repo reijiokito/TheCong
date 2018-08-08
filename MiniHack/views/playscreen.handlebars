@@ -1,0 +1,233 @@
+<form id="infoForm">
+    <table class="table table-striped">
+        <p id="ID">{{Info._id}}</p>
+        <tr>
+            <td></td>
+            <th id="p1">{{Info.p1}}</th>
+            <th id="p2">{{Info.p2}}</th>
+            <th id="p3">{{Info.p3}}</th>
+            <th id="p4">{{Info.p4}}</th>
+        </tr>
+        <tr class="sum">
+            <td>Sum of Score</td>
+            <td id="s1">{{Info.s1}}</td>
+            <td id="s2">{{Info.s2}}</td>
+            <td id="s3">{{Info.s3}}</td>
+            <td id="s4">{{Info.s4}}</td>
+        </tr>
+
+    </table>
+
+    <div class="container">
+        <button typ="submit" class="btn add-round center-block">ADD ROUND</button>
+    </div>
+</form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+
+    let i = 0;
+    let sum1 = 0;
+    let sum2 = 0;
+    let sum3 = 0;
+    let sum4 = 0;
+    let sos1 = 0;
+    let sos2 = 0;
+    let sos3 = 0;
+    let sos4 = 0;
+    let debounceTimeout;
+    let idInfo = $("#ID").text();
+
+    sum1 = $("#s1").text();
+    sos1 = parseInt(sum1, 10);
+    sum2 = $("#s2").text();
+    sos2 = parseInt(sum2, 10);
+    sum3 = $("#s3").text();
+    sos3 = parseInt(sum3, 10);
+    sum4 = $("#s4").text();
+    sos4 = parseInt(sum4, 10);
+    $(document).ready(function () {
+        var $button = $(".add-round");
+        var $table = $(".table");
+        $button.click(function () {
+            /*
+            // Random 3 numbers, remander = sum of 3 numbers* (-1)
+            let numRan1 = 0;
+            let numRan2 = 0;
+            let numRan3 = 0;
+            let numRan4 = 0;
+            let ran = 0;
+            while (true) {
+                ran = Math.round(Math.random() * 4);
+                if (ran > 0 && ran <= 4)
+                    break;
+            }
+            if (ran == 1) {
+                numRan1 = (-1) * Math.round(Math.random() * 100);
+                numRan2 = (-1) * Math.round(Math.random() * 100);
+                numRan3 = (-1) * Math.round(Math.random() * 100);
+                numRan4 = (numRan1 + numRan2 + numRan3) * (-1);
+            }
+            if (ran == 2) {
+                numRan1 = (-1) * Math.round(Math.random() * 100);
+                numRan2 = (-1) * Math.round(Math.random() * 100);
+                numRan4 = (-1) * Math.round(Math.random() * 100);
+                numRan3 = (numRan1 + numRan2 + numRan4) * (-1);
+            }
+            if (ran == 3) {
+                numRan1 = (-1) * Math.round(Math.random() * 100);
+                numRan4 = (-1) * Math.round(Math.random() * 100);
+                numRan3 = (-1) * Math.round(Math.random() * 100);
+                numRan2 = (numRan1 + numRan4 + numRan3) * (-1);
+            }
+            if (ran == 4) {
+                numRan4 = (-1) * Math.round(Math.random() * 100);
+                numRan2 = (-1) * Math.round(Math.random() * 100);
+                numRan3 = (-1) * Math.round(Math.random() * 100);
+                numRan1 = (numRan4 + numRan2 + numRan3) * (-1);
+            }
+            //put value to input
+            sos1 += numRan1;
+            sos2 += numRan2;
+            sos3 += numRan3;
+            sos4 += numRan4;
+            document.getElementById("s1").innerHTML = "" + sos1;
+            document.getElementById("s2").innerHTML = "" + sos2;
+            document.getElementById("s3").innerHTML = "" + sos3;
+            document.getElementById("s4").innerHTML = "" + sos4;
+            */
+
+            $table.append(`<tr>
+                <td>Round ${i += 1}</td>
+                <td><input type="text" name="player1" id="name${i}-1" ></td>
+                <td><input type="text" name="player2" id="name${i}-2" ></td>
+                <td><input type="text" name="player3" id="name${i}-3" ></td>
+                <td><input type="text" name="player4" id="name${i}-4" ></td>
+            </tr>`);
+
+            $(`#name${i}-1`).on("input", function () {
+                let s1= 0;
+                clearTimeout(debounceTimeout);
+                debounceTimeout = setTimeout(function () {
+                    if ($(`#name${i}-1`).val()) {
+                        for (let j = 1; j <= i; j++) {
+                            sum1 = $(`#name${j}-1`).val();
+                            s1 += parseInt(sum1, 10);
+                        }
+                        document.getElementById("s1").innerHTML =  sos1 + s1 + "";
+                    } else {
+                        alert("Blank input!!");
+                    }
+                });
+
+            });
+            $(`#name${i}-2`).on("input", function () {
+                let s2 = 0;
+                clearTimeout(debounceTimeout);
+                debounceTimeout = setTimeout(function () {
+                    if ($(`#name${i}-2`).val()) {
+                        for (let j = 1; j <= i; j++) {
+                            sum2 = $(`#name${j}-2`).val();
+                            s2 += parseInt(sum2, 10);
+                        }
+                        document.getElementById("s2").innerHTML = s2 + sos2 + "";
+                    } else {
+                        alert("Blank input!!");
+                    }
+                });
+
+            });
+            $(`#name${i}-3`).on("input", function () {
+                let s3 = 0;
+                clearTimeout(debounceTimeout);
+                debounceTimeout = setTimeout(function () {
+                    if ($(`#name${i}-3`).val()) {
+                        for (let j = 1; j <= i; j++) {
+                            sum3 = $(`#name${j}-3`).val();
+                            s3 += parseInt(sum3, 10);
+                        }
+                        document.getElementById("s3").innerHTML = s3 + sos3 + "";
+                    } else {
+                        alert("Blank input!!");
+                    }
+                });
+            });
+            $(`#name${i}-4`).on("input", function () {
+                let s4 = 0;
+                clearTimeout(debounceTimeout);
+                debounceTimeout = setTimeout(function () {
+                    if ($(`#name${i}-4`).val()) {
+                        for (let j = 1; j <= i; j++) {
+                            sum4 = $(`#name${j}-4`).val();
+                            s4 += parseInt(sum4, 10);
+                        }
+                        document.getElementById("s4").innerHTML = sos4 + s4 + "";
+                    } else {
+                        alert("Blank input!!");
+                    }
+                });
+
+            });
+
+            /*
+            $(`#name${i}-4`).on("input", function () {
+                sos4 = 0;
+                clearTimeout(debounceTimeout);
+                debounceTimeout = setTimeout(function () {
+                    if ($(`#name${i}-1`).val() != null && $(`#name${i}-2`).val() != null && $(`#name${i}-3`).val() != null) {
+                        if ($(`#name${i}-4`).val()) {
+                            for (let j = 1; j <= i; j++) {
+                                sum4 = $(`#name${j}-4`).val();
+                                sos4 += parseInt(sum4, 10);
+                            }
+                            document.getElementById("s4").innerHTML = "" + sos4;
+                        } else {
+                            alert("Blank input!!");
+                        }
+                    }else{
+                         $(`#name${i}-1`).text() = "";
+                         $(`#name${i}-2`).text() = "";
+                         $(`#name${i}-3`).text() = "";
+                         $(`#name${i}-4`).text() = "";
+                         alert("Wrong input!!-;")
+                    }
+                });
+
+            });
+            */
+
+        });
+
+    });
+
+
+    $("#infoForm").on("submit", function () {
+        event.preventDefault();
+        $.ajax({
+            url: '/api/addInfo',
+            type: 'POST',
+            data: {
+                s1: sos1,
+                s2: sos2,
+                s3: sos3,
+                s4: sos4,
+                p1: $("#p1").text(),
+                p2: $("#p2").text(),
+                p3: $("#p3").text(),
+                p4: $("#p4").text(),
+                id: idInfo
+            },
+            success: function (body) {
+
+            },
+            error: function (body) {
+                console.log(body);
+
+                alert("Loi roi");
+            }
+
+        })
+    });
+
+</script>
