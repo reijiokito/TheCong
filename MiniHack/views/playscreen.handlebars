@@ -39,14 +39,10 @@
     let debounceTimeout;
     let idInfo = $("#ID").text();
 
-    sum1 = $("#s1").text();
-    sos1 = parseInt(sum1, 10);
-    sum2 = $("#s2").text();
-    sos2 = parseInt(sum2, 10);
-    sum3 = $("#s3").text();
-    sos3 = parseInt(sum3, 10);
-    sum4 = $("#s4").text();
-    sos4 = parseInt(sum4, 10);
+
+
+
+
     $(document).ready(function () {
         var $button = $(".add-round");
         var $table = $(".table");
@@ -107,68 +103,89 @@
             </tr>`);
 
             $(`#name${i}-1`).on("input", function () {
-                let s1= 0;
+                sum1 = $("#s1").text();
+                sos1 = parseInt(sum1, 10);
+                let s1 = 0;
                 clearTimeout(debounceTimeout);
                 debounceTimeout = setTimeout(function () {
                     if ($(`#name${i}-1`).val()) {
                         for (let j = 1; j <= i; j++) {
                             sum1 = $(`#name${j}-1`).val();
-                            s1 += parseInt(sum1, 10);
+                            s1 += Number(sum1);
+
                         }
-                        document.getElementById("s1").innerHTML =  sos1 + s1 + "";
+                        sos1 = s1 + sos1;
+                        document.getElementById("s1").innerHTML = sos1 + "";
                     } else {
                         alert("Blank input!!");
                     }
-                });
+                }, 1000);
 
             });
             $(`#name${i}-2`).on("input", function () {
+                sum2 = $("#s2").text();
+                sos2 = parseInt(sum2, 10);
                 let s2 = 0;
                 clearTimeout(debounceTimeout);
                 debounceTimeout = setTimeout(function () {
                     if ($(`#name${i}-2`).val()) {
                         for (let j = 1; j <= i; j++) {
                             sum2 = $(`#name${j}-2`).val();
-                            s2 += parseInt(sum2, 10);
+                            s2 += Number(sum2);
                         }
-                        document.getElementById("s2").innerHTML = s2 + sos2 + "";
+                        sos2 = sos2 + s2;
+                        document.getElementById("s2").innerHTML = sos2 + "";
                     } else {
                         alert("Blank input!!");
                     }
-                });
+                }, 1000);
 
             });
             $(`#name${i}-3`).on("input", function () {
+                sum3 = $("#s3").text();
+                sos3 = parseInt(sum3, 10);
                 let s3 = 0;
                 clearTimeout(debounceTimeout);
                 debounceTimeout = setTimeout(function () {
                     if ($(`#name${i}-3`).val()) {
                         for (let j = 1; j <= i; j++) {
                             sum3 = $(`#name${j}-3`).val();
-                            s3 += parseInt(sum3, 10);
+                            s3 += Number(sum3);
                         }
-                        document.getElementById("s3").innerHTML = s3 + sos3 + "";
+                        sos3 = s3 + sos3;
+                        document.getElementById("s3").innerHTML = sos3 + "";
                     } else {
                         alert("Blank input!!");
                     }
-                });
+                }, 1000);
             });
             $(`#name${i}-4`).on("input", function () {
+                sum4 = $("#s4").text();
+                sos4 = parseInt(sum4, 10);
                 let s4 = 0;
                 clearTimeout(debounceTimeout);
                 debounceTimeout = setTimeout(function () {
                     if ($(`#name${i}-4`).val()) {
                         for (let j = 1; j <= i; j++) {
                             sum4 = $(`#name${j}-4`).val();
-                            s4 += parseInt(sum4, 10);
+                            s4 += Number(sum4);
                         }
-                        document.getElementById("s4").innerHTML = sos4 + s4 + "";
+                        sos4 = sos4 + s4;
+                        
+                        let sum = Number(sum1) + Number(sum2) + Number(sum3) + Number(sum4);
+
+                        if (sum != 0)
+                            alert("Wrong value!! Sum = " + sum);
+                        else
+                            document.getElementById("s4").innerHTML = sos4 + "";
+
                     } else {
                         alert("Blank input!!");
                     }
-                });
+                }, 1000);
 
             });
+
 
             /*
             $(`#name${i}-4`).on("input", function () {
@@ -205,8 +222,8 @@
     $("#infoForm").on("submit", function () {
         event.preventDefault();
         $.ajax({
-            url: '/api/addInfo',
-            type: 'POST',
+            url: '/api/update/' + idInfo,
+            type: 'PUT',
             data: {
                 s1: sos1,
                 s2: sos2,
@@ -219,7 +236,8 @@
                 id: idInfo
             },
             success: function (body) {
-
+                if (body.success)
+                    console.log("Send successfully");
             },
             error: function (body) {
                 console.log(body);

@@ -8,27 +8,23 @@ router.use(function(req,res,next){
     next();
 });
 
-router.post("/addInfo", (req, res) =>{
 
-    let newInfo = {
-        p1: req.body.p1,
-        p2: req.body.p2,
-        p3: req.body.p3,
-        p4: req.body.p4,
-        s1: req.body.s1,
-        s2: req.body.s2,
-        s3: req.body.s3,
-        s4: req.body.s4,
-        id: req.body.id
-    };
-    infoModel.find()
-        .then(function(doc){                
-            infoModel.update({_id : newInfo.id},{$set: {p1: newInfo.p1,p2 : newInfo.p2,p3:newInfo.p3,p4 : newInfo.p4,s1:newInfo.s1,s2:newInfo.s2,s3:newInfo.s3,s4:newInfo.s4}},() => {
-                    res.redirect("/playscreen");            
-                })            
+router.put("/update/:infoId",function(req,res){
+    infoModel.findById({_id:req.params.infoId},function(err,info){
+        if (req.body.p1) info.p1 = req.body.p1;
+        if (req.body.p2) info.p2 = req.body.p2;
+        if (req.body.p3) info.p3 = req.body.p3;
+        if (req.body.p4) info.p4 = req.body.p4;
+        if (req.body.s1) info.s1 = req.body.s1;
+        if (req.body.s2) info.s2 = req.body.s2;
+        if (req.body.s3) info.s3 = req.body.s3;
+        if (req.body.s4) info.s4 = req.body.s4;
+        info.save(function(err){
+            if(err) console.log(err);
+            else
+                console.log("update successfully");
         });
-
-    
+    });
 });
 
 module.exports = router;

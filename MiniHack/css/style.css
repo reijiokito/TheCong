@@ -18,6 +18,7 @@ body{
     border-radius: 5px;
     background-color: #eee;
     margin-bottom: 20px;
+    max-width: 20px;
 }
 
 #form button{
@@ -51,24 +52,24 @@ table tr{
 table {
     width:100%;
 }
-table, th, td {
-    border: 1px solid black;
+table {
     border-collapse: collapse;
+    border-spacing: 0px;
 }
-th, td {
-    padding: 15px;
-    text-align: left;
+table tr {
+    margin-bottom:0;
+    height:25px;
+    width: 100%;
+    padding:0;
 }
-table#t01 tr:nth-child(even) {
-    background-color: #eee;
+table input {
+    color : black;
+    width:80px;
+    height:40px;
+    border:1px solid #000;
+    text-align:center;
 }
-table#t01 tr:nth-child(odd) {
-   background-color: #fff;
-}
-table#t01 th {
-    background-color: black;
-    color: white;
-}
+tr:nth-child(even){background-color: purple}
 #ID{
     opacity: 0;
 }
