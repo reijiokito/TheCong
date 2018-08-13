@@ -109,11 +109,11 @@
                 clearTimeout(debounceTimeout);
                 debounceTimeout = setTimeout(function () {
                     if ($(`#name${i}-1`).val()) {
-                        for (let j = 1; j <= i; j++) {
-                            sum1 = $(`#name${j}-1`).val();
-                            s1 += Number(sum1);
 
-                        }
+                        sum1 = $(`#name${i}-1`).val();
+                        s1 += Number(sum1);
+
+
                         sos1 = s1 + sos1;
                         document.getElementById("s1").innerHTML = sos1 + "";
                     } else {
@@ -129,10 +129,10 @@
                 clearTimeout(debounceTimeout);
                 debounceTimeout = setTimeout(function () {
                     if ($(`#name${i}-2`).val()) {
-                        for (let j = 1; j <= i; j++) {
-                            sum2 = $(`#name${j}-2`).val();
-                            s2 += Number(sum2);
-                        }
+
+                        sum2 = $(`#name${i}-2`).val();
+                        s2 += Number(sum2);
+
                         sos2 = sos2 + s2;
                         document.getElementById("s2").innerHTML = sos2 + "";
                     } else {
@@ -148,10 +148,10 @@
                 clearTimeout(debounceTimeout);
                 debounceTimeout = setTimeout(function () {
                     if ($(`#name${i}-3`).val()) {
-                        for (let j = 1; j <= i; j++) {
-                            sum3 = $(`#name${j}-3`).val();
-                            s3 += Number(sum3);
-                        }
+
+                        sum3 = $(`#name${i}-3`).val();
+                        s3 += Number(sum3);
+
                         sos3 = s3 + sos3;
                         document.getElementById("s3").innerHTML = sos3 + "";
                     } else {
@@ -166,12 +166,12 @@
                 clearTimeout(debounceTimeout);
                 debounceTimeout = setTimeout(function () {
                     if ($(`#name${i}-4`).val()) {
-                        for (let j = 1; j <= i; j++) {
-                            sum4 = $(`#name${j}-4`).val();
-                            s4 += Number(sum4);
-                        }
+
+                        sum4 = $(`#name${i}-4`).val();
+                        s4 += Number(sum4);
+
                         sos4 = sos4 + s4;
-                        
+
                         let sum = Number(sum1) + Number(sum2) + Number(sum3) + Number(sum4);
 
                         if (sum != 0)
