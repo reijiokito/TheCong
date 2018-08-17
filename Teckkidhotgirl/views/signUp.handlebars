@@ -1,0 +1,60 @@
+<div class="modal-dialog text-center">
+    <div class="col-sm-8 main-section">
+        <di class="modal-content">
+            <div class="col-12 user-img">
+                <img src="./1.png" alt="userImage">
+            </div>
+            <form class="col-12">
+                <div class="form-group">
+                    <i class="fas fa-user" id="icon1"></i>
+                    <input type="text" id="username" class="form-control" placeholder="Enter Username">
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-lock" id="icon2"></i>
+                    <input type="password" id="password" class="form-control" placeholder="Enter Password">
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" class="form-control" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="name" class="form-control" placeholder="Enter Name">
+                </div>                
+                <div class="form-group">
+                    <input type="text" id="image" class="form-control" placeholder="Avatar link">
+                </div>
+                <button type="submit" class="btn btn-success" id="signUp">
+                    <i class="fas fa-sign-in-alt"></i> Sign Up </button>
+            </form>
+            <div class="col-12 forgot">
+                <a href="#">Forgot password? </a>
+            </div>
+    </div>
+</div>
+<script>
+    $("#signUp").on("click", function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: '/api/users',
+            type: 'POST',
+            data: {
+                username: $("#username").val(),
+                password: $("#password").val(),
+                email: $("#email").val(),
+                name: $("#name").val(),
+                avatarUrl: $("#image").val()
+            },
+            success: function (body) {
+                if (body.success) {
+                    window.location.href = "http://localhost:8989/";
+                    alert("Sign up successfully!!");
+                } else {
+                    alert("Loi roi: 1");
+                }
+            },
+            error: function (body) {
+                console.log(body);
+                alert("Loi roi: 2");
+            }
+        });
+    });
+</script>

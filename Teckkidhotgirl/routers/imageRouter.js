@@ -3,12 +3,14 @@ const imageRouter = express.Router();
 const imageModel = require("../models/imageModel");
 
 imageRouter.get("/", function (req, res) {
-    imageModel.find({}, function (err, images) {
+    imageModel.find({})
+    .populate("owner")
+    .exec((err, images) =>{
         if (err) res.status(500).send({ success: 0, err });
         else
             res.status(201).send({ success: 1, images });
 
-    })
+    });
 });
 
 imageRouter.post("/", function (req, res) {
@@ -20,6 +22,8 @@ imageRouter.post("/", function (req, res) {
     });
 });
 
+
+
 imageRouter.put("/update/:imageId",function(req,res){
     imageModel.findById({_id:req.params.imageId},function(err,image){
         if (req.body.imageUrl) image.imageUrl = req.body.imageUrl;
@@ -27,13 +31,15 @@ imageRouter.put("/update/:imageId",function(req,res){
         if (req.body.like) image.like = req.body.like;
         if (req.body.owner) image.owner = req.body.owner;
         if (req.body.description) image.description = req.body.description;
+        if (req.body.comment) image.comment = req.body.comment;
+
         image.save(function(err){
             if(err) console.log(err);
             else
                 res.json({message: "Update successfully-"});
-        })
+        });
     });
-})
+});
 
 //Delete
 imageRouter.delete("/delete/:imageId",function(req,res){
@@ -47,11 +53,14 @@ imageRouter.delete("/delete/:imageId",function(req,res){
 });
 
 imageRouter.get("/:imageId",function(req,res){
-    imageModel.findById({_id: req.params.imageId},function(err,image){
+    imageModel.findById({_id: req.params.imageId})    
+    .populate('owner')
+    .populate('comment.user','username avatarUrl name')
+    .exec(function(err,image){
         if(err) res.status(500).send({success:0,errMsg:"Error get image"});
         else
             res.status(201).send({success:1,image});
-    });
+    })
 });
 
 module.exports = imageRouter;
