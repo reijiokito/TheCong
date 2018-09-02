@@ -3,7 +3,7 @@ const hbs = require("express-handlebars");
 const mongoose = require("mongoose");
 const infoModel = require("./models/infoModel");
 const bodyParser = require("body-parser");
-
+const cors = require('cors');
 const apiRouter = require('./router/apiRouter');
 
 let app = express();
@@ -17,64 +17,27 @@ app.use(bodyParser.json());
 app.use("/api",apiRouter);
 
 
-app.get("/",function(req,res){
-    res.render("createscreen");
-});
+// app.get("/",function(req,res){
+//     res.render("createscreen");
+// });
+app.use(cors({ origin: ['http://localhost:8080','http://localhost:3000'], credentials: true }));
 
-app.post("/playscreen", (req, res) =>{
+app.post("/screen", (req, res) =>{
 
     let newInfo = {
-        p1: req.body.player1,
-        p2: req.body.player2,
-        p3: req.body.player3,
-        p4: req.body.player4
+        players : req.body.players,
+        scores : req.body.scores
     };
     infoModel.create(newInfo, (err, infoCreated) => {
         if(err) console.log(err);
-        else
-            res.redirect('/playscreen');
+        else res.send({success :1,infoCreated : infoCreated});
+            // res.redirect('/playscreen');
         
 
     });
 
     
 });
-
-
-
-app.get("/playscreen",function(req,res){
-    infoModel.countDocuments({}, (err, infoListLength) => {
-        //skip: bỏ qua bao nhiêu bản ghi
-          infoModel.findOne({}).skip(infoListLength-1).exec((err, infoFound) => {
-
-              if(err) console.error(err);
-              else{
-                  res.render("playscreen", {
-                      Info: infoFound
-                                        
-                  });
-              }
-          })
-      })
-      
-
-});
-
-// app.get("/playscreen/api/addInfo",function(req,res){
-//     infoModel.countDocuments({}, (err, infoListLength) => {
-//         //skip: bỏ qua bao nhiêu bản ghi
-//           infoModel.findOne({}).skip(infoListLength-1).exec((err, infoFound) => {
-
-//               if(err) console.error(err);
-//               else{
-//                   infoModel.update({_id : infoFound._id},{$set: {s1: doc[0].yes + 1}},() => {
-//                     res.redirect("/playscreen");            
-//                 })
-//               }
-//           })
-//       })
-// });
-
 
 app.use(express.static("./css"));
 
