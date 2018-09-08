@@ -142,7 +142,7 @@ app.get('/lyLy', function(req, res){
 });
 
 app.get('/html', function(req, res){
-    res.sendFile(__dirname + '/Example.html');
+    res.sendFile('E:/TheCong/BUOI5/Index.html');
 });
 
 // app.get('/cross', function(req, res){

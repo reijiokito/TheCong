@@ -12,7 +12,7 @@ router.use(function(req,res,next){
 });
 router.post("/addQuestion",(req,res) => {
    let newQuestion = {
-       content: req.body.question,
+       content: req.body.quest,
 
     };
     QuestionModel.create(newQuestion,function(err, questionCreated){        

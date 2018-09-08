@@ -2,7 +2,7 @@
       {{!-- action="/question/add" method="post" --}}
     <form id="questionForm"> 
         <h1>Hãy hỏi cộng đồng một câu hỏi đúng/sai hoặc có/không</h1>
-        <textarea class="form-control" maxlength="200" rows="6" id="question" name="question" ></textarea>        
+        <textarea class="form-control" maxlength="200" rows="6" id="question" name="quest" ></textarea>        
         <p>Con <span id="remain">200 </span> / 200 ky tu</p>
         <button class="btn btn-primary" type="submit" id="btn_ask">Gửi</button>
       </form>
@@ -23,6 +23,7 @@
       type : 'POST',
       data: $("#question").serialize(),
       success: function(body){
+        
         if(body.success){
           window.location.href = "/question/" +body.questionId;
         }else{
